@@ -50,26 +50,63 @@ class Worker {
   }
 
   showSalaryWithExperience() {
-    console.log(
-      this.fullName,
-      "salary :",
-      this.dayRate * this.workingDays * this.experience
-    );
+    return this.dayRate * this.workingDays * this.experience;
   }
 }
 
-var worker1 = new Worker("Ivan Kovalets", 55, 22);
-var worker2 = new Worker("Jhon Jhonson", 40, 23);
-var worker3 = new Worker("Tom Tomson", 34, 21);
+var worker1 = new Worker("Jhon Jhonson", 40, 23);
+var worker2 = new Worker("Tom Tomson", 34, 21);
+var worker3 = new Worker("Ivan Kovalets", 55, 22);
+
+console.log(worker1.fullName);
+worker1.showSalary();
+console.log("New experience: " + worker1.experience);
+console.log(worker1.fullName, "salary :", worker1.showSalaryWithExperience());
+worker1.experience = 1.5;
+console.log("New experience: " + worker1.experience);
+console.log(worker1.fullName, "salary :", worker1.showSalaryWithExperience());
 
 console.log(worker2.fullName);
 worker2.showSalary();
 console.log("New experience: " + worker2.experience);
-worker2.showSalaryWithExperience();
+console.log(worker2.fullName, "salary :", worker2.showSalaryWithExperience());
 worker2.experience = 1.5;
 console.log("New experience: " + worker2.experience);
-worker2.showSalaryWithExperience();
+console.log(worker2.fullName, "salary :", worker2.showSalaryWithExperience());
 
+console.log(worker3.fullName);
+worker3.showSalary();
+console.log("New experience: " + worker3.experience);
+console.log(worker3.fullName, "salary :", worker3.showSalaryWithExperience());
+worker3.experience = 1.5;
+console.log("New experience: " + worker3.experience);
+console.log(worker3.fullName, "salary :", worker3.showSalaryWithExperience());
+
+var arrWorkers = [
+  (work1 = {
+    name: worker1.fullName,
+    salary: worker1.showSalaryWithExperience()
+  }),
+  (work2 = {
+    name: worker2.fullName,
+    salary: worker2.showSalaryWithExperience()
+  }),
+  (work2 = {
+    name: worker3.fullName,
+    salary: worker3.showSalaryWithExperience()
+  })
+];
+console.log(arrWorkers);
+arrWorkers.sort(function(a, b) {
+  return a.salary - b.salary;
+});
+function sortSalary(arrWorkers) {
+  for (var i = 0; i < arrWorkers.length; i++) {
+    console.log(arrWorkers[i].name, " ", arrWorkers[i].salary);
+  }
+}
+
+sortSalary(arrWorkers);
 // Task 4
 
 class Person {
@@ -132,7 +169,7 @@ class Triangle extends GeometricFigure {
   }
   getArea() {
     var s = (this.a * this.b) / 2;
-    console.log("Triangle - area: ", s);
+    return s;
   }
 }
 
@@ -143,7 +180,7 @@ class Square extends GeometricFigure {
   }
   getArea() {
     var s = Math.pow(this.c, 2);
-    console.log("Square - area: ", s);
+    return s;
   }
 }
 
@@ -155,21 +192,25 @@ class Circle extends GeometricFigure {
   getArea() {
     var s = Math.pow(this.d, 2);
     s = s * 3.14;
-    console.log("Circle - area: ", s);
+    return s;
   }
 }
 
-var square = new Square(7);
-square.getArea();
-
-var triangle = new Triangle(4, 5);
-triangle.getArea();
-
-var circle = new Circle(5);
-circle.getArea();
-
-/*function handelFigures(figures) {
-
-   
+function handleFigures(figures) {
+  var sumArea = 0;
+  for (var i = 0; i < figures.length; i++) {
+    if (figures[i] instanceof GeometricFigure) {
+      sumArea += figures[i].getArea();
+    }
+    console.log(
+      "Geometric Figure: ",
+      figures[i].toString(),
+      " ",
+      figures[i].getArea()
+    );
+    console.log(sumArea);
+  }
 }
-const figures = [new Triangle(4, 5), new Square(7), new Circle(5)];*/
+
+var figures = [new Triangle(4, 5), new Square(7), new Circle(5)];
+handleFigures(figures);
